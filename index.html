@@ -1,0 +1,2369 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>디지털존 2027 개선 과제 통합 WBS 및 정의서 포털</title>
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-hover: #172554;
+      --primary-light: #eff6ff;
+      --accent: #ec4899;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-sub: #475569;
+      --border: #e2e8f0;
+      --p1-bg: #fee2e2; --p1-text: #b91c1c;
+      --p2-bg: #e0e7ff; --p2-text: #3730a3;
+      --p3-bg: #fef3c7; --p3-text: #b45309;
+      --budget-bg: #dcfce7; --budget-text: #15803d;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 24px 20px 60px;
+    }
+
+    /* Top Nav */
+    .top-nav {
+      max-width: 1380px;
+      margin: 0 auto 20px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+    }
+
+    .nav-brand {
+      font-weight: 800;
+      font-size: 16px;
+      color: var(--primary);
+      display: inline-flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .nav-brand span.accent { color: var(--accent); }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-nav-home {
+      background: var(--primary-light);
+      border: 1px solid #bfdbfe;
+      color: var(--primary);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 7px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-nav-home:hover {
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    .btn-print {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 7px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-print:hover {
+      background: var(--primary-light);
+      color: var(--primary);
+      border-color: #93c5fd;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1380px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(15, 23, 42, 0.06);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    /* Header */
+    .doc-header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      color: #ffffff;
+      padding: 32px 40px;
+    }
+
+    .doc-header .brand {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #93c5fd;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .doc-header .brand span.accent { color: #f472b6; }
+
+    .doc-header h1 {
+      font-size: 25px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+    }
+
+    .doc-header p.desc {
+      font-size: 14px;
+      color: #cbd5e1;
+      margin-bottom: 16px;
+    }
+
+    .badge-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .badge {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .badge-p1 { background: var(--p1-bg); color: var(--p1-text); }
+    .badge-p2 { background: var(--p2-bg); color: var(--p2-text); }
+    .badge-p3 { background: var(--p3-bg); color: var(--p3-text); }
+    .badge-budget { background: var(--budget-bg); color: var(--budget-text); }
+    .badge-status { background: #e0f2fe; color: #0369a1; }
+
+    /* Doc Body */
+    .doc-body { padding: 32px 36px; }
+
+    /* Control & Legend Top Bar */
+    .top-control-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 16px;
+      padding: 14px 18px;
+      background: var(--bg);
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+
+    .filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .filter-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-right: 4px;
+    }
+
+    .filter-btn {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      color: var(--text-sub);
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .filter-btn.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    .btn-expand-all {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .btn-expand-all:hover {
+      background: var(--primary-light);
+      color: var(--primary);
+      border-color: #93c5fd;
+    }
+
+    /* Legend in Top Bar */
+    .legend-box {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-sub);
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .legend-color {
+      width: 14px;
+      height: 11px;
+      border-radius: 3px;
+      display: inline-block;
+    }
+
+    .guide-notice {
+      font-size: 13px;
+      color: var(--primary);
+      font-weight: 600;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* WBS Table & Gantt */
+    .wbs-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    table.wbs-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+      min-width: 1300px;
+    }
+
+    table.wbs-table th {
+      background: #f1f5f9;
+      color: var(--text-main);
+      font-weight: 700;
+      padding: 9px 6px;
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    table.wbs-table th.sub-week {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-sub);
+      padding: 5px 2px;
+      background: #f8fafc;
+    }
+
+    table.wbs-table th:last-child { border-right: none; }
+
+    table.wbs-table td {
+      padding: 9px 8px;
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      color: var(--text-sub);
+      vertical-align: middle;
+    }
+
+    table.wbs-table td:last-child { border-right: none; }
+
+    /* Master Summary Row */
+    tr.master-row {
+      background: #ffffff;
+      border-top: 2px solid #cbd5e1;
+      transition: background 0.15s;
+    }
+
+    tr.master-row:hover {
+      background: #f8fafc;
+    }
+
+    /* Sub-task Rows */
+    tr.sub-row {
+      background: #fcfdff;
+    }
+
+    tr.sub-row.collapsed {
+      display: none;
+    }
+
+    .project-cell-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .toggle-sub-btn {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 11.5px;
+      font-weight: 700;
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.15s;
+    }
+
+    .toggle-sub-btn:hover {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    .task-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--primary-light);
+      color: var(--primary);
+      border: 1px solid #bfdbfe;
+      padding: 5px 10px;
+      border-radius: 7px;
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.15s;
+      flex-grow: 1;
+    }
+
+    .task-link-btn:hover {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    /* Gantt Cells */
+    td.gantt-cell {
+      padding: 5px 2px;
+      width: 28px;
+      min-width: 28px;
+      text-align: center;
+    }
+
+    td.month-end, th.month-end {
+      border-right: 1px solid #cbd5e1 !important;
+    }
+
+    .gantt-bar {
+      height: 15px;
+      border-radius: 3px;
+      width: 100%;
+      display: block;
+    }
+
+    .gantt-bar.master-summary {
+      height: 12px;
+      opacity: 0.85;
+    }
+
+    .bar-plan { background: #93c5fd; }
+    .bar-dev { background: #2563eb; }
+    .bar-qa { background: #f59e0b; }
+    .bar-launch { background: #10b981; }
+    .bar-total { background: #334155; }
+
+    /* One-Pager Detail Styles */
+    .back-bar {
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .btn-back {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-back:hover {
+      background: var(--primary-light);
+      color: var(--primary);
+      border-color: #bfdbfe;
+    }
+
+    section { margin-bottom: 36px; }
+    section:last-child { margin-bottom: 0; }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--primary-light);
+      margin-bottom: 18px;
+    }
+
+    .section-num {
+      background: var(--primary);
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 700;
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .three-col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .two-col, .three-col { grid-template-columns: 1fr; }
+      .doc-header, .doc-body { padding: 24px; }
+    }
+
+    .info-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+
+    .info-card.highlight {
+      background: var(--primary-light);
+      border-color: #bfdbfe;
+    }
+
+    .info-card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .info-card p, .info-card li {
+      font-size: 14px;
+      color: var(--text-sub);
+    }
+
+    ul.clean-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    ul.clean-list li {
+      position: relative;
+      padding-left: 16px;
+      font-size: 14px;
+      color: var(--text-main);
+    }
+
+    ul.clean-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    ul.sub-list {
+      list-style: none;
+      margin-top: 6px;
+      padding-left: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    ul.sub-list li {
+      font-size: 13.5px;
+      color: var(--text-sub);
+      padding-left: 12px;
+    }
+
+    ul.sub-list li::before {
+      content: "-";
+      color: var(--text-sub);
+    }
+
+    /* Visual Architecture & Compare Table */
+    .arch-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .arch-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .arch-flow {
+      display: grid;
+      grid-template-columns: 1fr auto 1.4fr auto 1fr;
+      align-items: center;
+      gap: 12px;
+    }
+
+    @media (max-width: 768px) {
+      .arch-flow { grid-template-columns: 1fr; }
+      .arch-arrow { transform: rotate(90deg); text-align: center; }
+    }
+
+    .arch-col {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .arch-col.hub {
+      background: #1e293b;
+      color: #ffffff;
+      border-color: #0f172a;
+    }
+
+    .arch-col h4 {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--primary);
+    }
+
+    .arch-col.hub h4 { color: #93c5fd; }
+
+    .arch-pill {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 8px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text-main);
+    }
+
+    .arch-col.hub .arch-pill {
+      background: #334155;
+      border-color: #475569;
+      color: #f8fafc;
+    }
+
+    .arch-pill:last-child { margin-bottom: 0; }
+    .arch-arrow { font-size: 18px; font-weight: 700; color: var(--primary); }
+
+    table.compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      font-size: 13.5px;
+    }
+
+    table.compare-table th {
+      background: #f1f5f9;
+      color: var(--text-main);
+      font-weight: 700;
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      text-align: left;
+    }
+
+    table.compare-table th.tobe-col {
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    table.compare-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      color: var(--text-sub);
+      vertical-align: top;
+    }
+
+    table.compare-table td.tobe-cell {
+      background: #f8fafc;
+      color: var(--text-main);
+    }
+
+    table.compare-table tr:last-child td { border-bottom: none; }
+
+    .callout {
+      background: #fffbeb;
+      border-left: 4px solid #f59e0b;
+      border-radius: 0 8px 8px 0;
+      padding: 16px 20px;
+      margin-top: 16px;
+    }
+
+    .callout-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #92400e;
+      margin-bottom: 6px;
+    }
+
+    .callout ul {
+      padding-left: 18px;
+      font-size: 13.5px;
+      color: #78350f;
+    }
+
+    .callout li { margin-bottom: 4px; }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    table.detail-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      text-align: left;
+    }
+
+    table.detail-table th {
+      background: var(--bg);
+      color: var(--text-main);
+      font-weight: 700;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    table.detail-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-sub);
+      vertical-align: top;
+    }
+
+    table.detail-table tr:last-child td { border-bottom: none; }
+    table.detail-table td strong { color: var(--text-main); }
+
+    .schedule-notice {
+      font-size: 13px;
+      color: var(--text-sub);
+      background: var(--bg);
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin-bottom: 14px;
+      border: 1px solid var(--border);
+    }
+
+    .meeting-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .meeting-item {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--primary);
+      border-radius: 0 10px 10px 0;
+      padding: 14px 18px;
+      transition: background 0.15s;
+    }
+
+    .meeting-item:hover {
+      background: #f1f5f9;
+    }
+
+    .meeting-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .meeting-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .meeting-toggle-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 5px;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    .meeting-body {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .meeting-body.collapsed {
+      display: none;
+    }
+
+    .meeting-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .meeting-meta {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 3px 10px;
+      border-radius: 9999px;
+    }
+
+    /* Action Item Tracker & Milestone Table */
+    .milestone-header-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+      padding: 10px 14px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .progress-summary {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .progress-bar-wrap {
+      width: 120px;
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: #10b981;
+      transition: width 0.2s ease;
+    }
+
+    .tracker-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-tracker {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-tracker:hover {
+      background: var(--primary-light);
+      color: var(--primary);
+      border-color: #93c5fd;
+    }
+
+    .btn-tracker.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    .step-cell {
+      background: #f8fafc;
+      font-weight: 700;
+      color: var(--text-main) !important;
+      border-right: 1px solid var(--border);
+    }
+
+    .id-cell {
+      text-align: center;
+      font-weight: 700;
+      color: var(--primary) !important;
+      white-space: nowrap;
+    }
+
+    .status-pill {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      margin-top: 6px;
+    }
+
+    .status-wait { background: #f1f5f9; color: #64748b; }
+    .status-ing { background: #dbeafe; color: #1d4ed8; }
+    .status-done { background: #dcfce7; color: #15803d; }
+
+    .checklist-ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-main);
+      cursor: pointer;
+      padding: 3px 6px;
+      border-radius: 6px;
+      transition: background 0.12s;
+      user-select: none;
+    }
+
+    .checklist-item:hover {
+      background: #f1f5f9;
+    }
+
+    .checklist-item input[type="checkbox"] {
+      margin-top: 3px;
+      width: 15px;
+      height: 15px;
+      accent-color: var(--primary);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .checklist-item.checked span {
+      text-decoration: line-through;
+      color: #94a3b8;
+    }
+
+    .sync-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #cbd5e1;
+    }
+
+    .sync-badge.connected {
+      background: #dcfce7;
+      color: #15803d;
+      border-color: #86efac;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 20px;
+    }
+
+    .modal-card {
+      background: #ffffff;
+      border-radius: 14px;
+      max-width: 560px;
+      width: 100%;
+      padding: 24px 28px;
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.2);
+      border: 1px solid var(--border);
+    }
+
+    .modal-card h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .modal-card p {
+      font-size: 13.5px;
+      color: var(--text-sub);
+      margin-bottom: 12px;
+      line-height: 1.55;
+    }
+
+    .modal-input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 13px;
+      margin-bottom: 14px;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .date-editable {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 30px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px dashed transparent;
+      cursor: pointer;
+      transition: all 0.15s;
+      color: var(--text-main);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .date-editable:hover {
+      background: #f1f5f9;
+      border-color: #94a3b8;
+    }
+
+    .date-editable.empty {
+      border-color: #e2e8f0;
+      background: #f8fafc;
+    }
+
+    .date-editable.empty:hover {
+      border-color: #94a3b8;
+      background: #f1f5f9;
+    }
+
+    .btn-header-wbs {
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 6px 13px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-header-wbs:hover {
+      background: #ffffff;
+      color: var(--primary);
+    }
+
+    .date-single-input {
+      width: 100%;
+      padding: 5px 8px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary);
+      background: #ffffff;
+      border: 2px solid var(--primary);
+      border-radius: 6px;
+      text-align: center;
+      outline: none;
+    }
+
+    .checklist-row-wrap {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 6px;
+      padding: 3px 6px;
+      border-radius: 6px;
+      transition: background 0.12s;
+    }
+
+    .checklist-row-wrap:hover {
+      background: #f1f5f9;
+    }
+
+    .checklist-left {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      flex-grow: 1;
+    }
+
+    .checklist-left input[type="checkbox"] {
+      margin-top: 3px;
+      width: 15px;
+      height: 15px;
+      accent-color: var(--primary);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .checklist-text {
+      font-size: 13px;
+      color: var(--text-main);
+      cursor: text;
+      word-break: keep-all;
+      flex-grow: 1;
+      min-height: 20px;
+    }
+
+    .checklist-row-wrap.checked .checklist-text {
+      text-decoration: line-through;
+      color: #94a3b8;
+    }
+
+    .checklist-inline-input {
+      width: 100%;
+      font-family: inherit;
+      font-size: 13px;
+      color: var(--text-main);
+      background: #ffffff;
+      border: 1.5px solid var(--primary);
+      border-radius: 5px;
+      padding: 2px 6px;
+      outline: none;
+    }
+
+    .btn-del-check {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 13px;
+      cursor: pointer;
+      padding: 0 4px;
+      line-height: 1.4;
+      opacity: 0;
+      transition: opacity 0.12s, color 0.12s;
+    }
+
+    .checklist-row-wrap:hover .btn-del-check {
+      opacity: 1;
+    }
+
+    .btn-del-check:hover {
+      color: #dc2626;
+    }
+
+    .header-bottom-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .title-cell-wrap {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .btn-add-subtask {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: var(--primary);
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      opacity: 0.35;
+      transition: all 0.15s;
+    }
+
+    tr:hover .btn-add-subtask,
+    .btn-add-subtask:focus {
+      opacity: 1;
+    }
+
+    .btn-add-subtask:hover {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    .owner-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 1px 7px;
+      border-radius: 9999px;
+      background: #e0e7ff;
+      color: #3730a3;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+
+    .chk-actions {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      opacity: 0;
+      transition: opacity 0.12s;
+      flex-shrink: 0;
+    }
+
+    .checklist-row-wrap:hover .chk-actions {
+      opacity: 1;
+    }
+
+    .btn-chk-mini {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 1px 4px;
+      border-radius: 4px;
+      line-height: 1.3;
+    }
+
+    .btn-chk-mini:hover {
+      background: #e2e8f0;
+      color: var(--primary);
+    }
+
+    .btn-chk-mini.del:hover {
+      background: #fee2e2;
+      color: #dc2626;
+    }
+
+    .meeting-header-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-meeting-edit {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-meeting-edit:hover {
+      background: var(--primary-light);
+      color: var(--primary);
+      border-color: #93c5fd;
+    }
+
+    .meeting-edit-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .meeting-edit-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1.5fr;
+      gap: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .meeting-edit-grid { grid-template-columns: 1fr; }
+    }
+
+    .meeting-input, .meeting-textarea {
+      width: 100%;
+      font-family: inherit;
+      font-size: 13px;
+      color: var(--text-main);
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 7px 10px;
+      outline: none;
+    }
+
+    .meeting-input:focus, .meeting-textarea:focus {
+      border-color: var(--primary);
+    }
+
+    .meeting-textarea {
+      min-height: 110px;
+      line-height: 1.55;
+      resize: vertical;
+    }
+
+    .meeting-edit-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 6px;
+    }
+
+    .meeting-content-pre {
+      font-size: 13.5px;
+      color: var(--text-main);
+      line-height: 1.65;
+      white-space: pre-wrap;
+      word-break: keep-all;
+      font-family: inherit;
+    }
+
+    .owner-editable {
+      display: inline-block;
+      width: 100%;
+      min-height: 26px;
+      padding: 3px 6px;
+      border-radius: 6px;
+      border: 1px dashed transparent;
+      cursor: pointer;
+      transition: all 0.15s;
+      color: var(--text-sub);
+    }
+
+    .owner-editable:hover {
+      background: #f1f5f9;
+      border-color: #94a3b8;
+      color: var(--text-main);
+    }
+
+    .owner-input-inline {
+      width: 100%;
+      padding: 4px 7px;
+      font-family: inherit;
+      font-size: 13px;
+      color: var(--text-main);
+      background: #ffffff;
+      border: 2px solid var(--primary);
+      border-radius: 6px;
+      outline: none;
+    }
+
+    .hidden { display: none !important; }
+
+    @media print {
+      body { background: #ffffff; padding: 0; }
+      .top-nav, .back-bar, .top-control-bar, .guide-notice { display: none !important; }
+      .container { box-shadow: none; border: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- VIEW 1: 통합 WBS 대시보드 -->
+  <div id="view-wbs" class="container">
+    <header class="doc-header">
+      <div class="brand">DIGITAL<span class="accent">ZONE</span> · 2027 로드맵</div>
+      <h1>디지털존 2027 개선 과제 통합 WBS 및 상세 일정</h1>
+      <p class="desc">과제명을 클릭하면 상세 정의서로 이동하며, 좌측 [+] 버튼을 누르면 단계별 세부 작업 내용을 펼쳐볼 수 있습니다</p>
+      <div class="badge-group" id="summaryBadges">
+        <!-- JS에서 동적 카운팅 렌더링 -->
+      </div>
+    </header>
+
+    <div class="doc-body">
+      <div class="top-control-bar">
+        <div class="filter-group" id="filterGroup">
+          <!-- JS에서 동적 카운팅 렌더링 -->
+        </div>
+
+        <div class="legend-box">
+          <div class="legend-item"><span class="legend-color bar-total"></span> 전체 추진 기간</div>
+          <div class="legend-item"><span class="legend-color bar-plan"></span> 기획·요건 정의</div>
+          <div class="legend-item"><span class="legend-color bar-dev"></span> 설계·개발</div>
+          <div class="legend-item"><span class="legend-color bar-qa"></span> QA·보안 점검</div>
+          <div class="legend-item"><span class="legend-color bar-launch"></span> 오픈·배포</div>
+        </div>
+      </div>
+
+      <div class="guide-notice">
+        💡 <strong>사용 안내:</strong> 각 행의 <strong>[+] 버튼</strong>을 클릭해 단계별 작업 내용을 펼치거나 접을 수 있으며, <strong>과제명</strong>을 클릭하면 상세 정의서로 랜딩됩니다 (차트 눈금: 월별 1W / 2W 2주 단위)
+      </div>
+
+      <div class="wbs-wrap">
+        <table class="wbs-table" id="wbsTable">
+          <thead id="wbsThead"></thead>
+          <tbody id="wbsTbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIEW 2: 개별 과제 정의서 랜딩 영역 -->
+  <div id="view-detail" class="container hidden"></div>
+
+  <!-- 분리된 과제 데이터 파일 로드 -->
+  <script src="tasks_data.js"></script>
+
+  <!-- UI 렌더링 엔진 (고정 로직) -->
+  <script>
+    function initSummaryCounts() {
+      const p1Count = wbsTasks.filter(t => t.priority === 'P1').length;
+      const p2Count = wbsTasks.filter(t => t.priority === 'P2').length;
+      const p3Count = wbsTasks.filter(t => t.priority === 'P3').length;
+      const totalCount = wbsTasks.length;
+
+      document.getElementById('summaryBadges').innerHTML = `
+        <span class="badge badge-p1">P1: 운영 필수 및 단기 핵심 (${p1Count}건)</span>
+        <span class="badge badge-p2">P2: 중장기 전략 신사업 (${p2Count}건)</span>
+        <span class="badge badge-p3">P3: 하반기 후순위 조율 (${p3Count}건)</span>
+      `;
+
+      document.getElementById('filterGroup').innerHTML = `
+        <span class="filter-label">우선순위:</span>
+        <button class="filter-btn active" onclick="filterWbs('ALL', this)">전체 (${totalCount})</button>
+        <button class="filter-btn" onclick="filterWbs('P1', this)">P1 (${p1Count})</button>
+        <button class="filter-btn" onclick="filterWbs('P2', this)">P2 (${p2Count})</button>
+        <button class="filter-btn" onclick="filterWbs('P3', this)">P3 (${p3Count})</button>
+        <button class="btn-expand-all" id="btnExpandAll" onclick="toggleAllSubRows()">➕ 세부 작업 전체 펼치기</button>
+      `;
+    }
+
+    function renderWbsTable() {
+      const thead = document.getElementById('wbsThead');
+      const tbody = document.getElementById('wbsTbody');
+
+      let monthHeaders = monthsList.map(m => `<th colspan="2" class="month-end">${m}</th>`).join('');
+      let weekHeaders = monthsList.map(() => `<th class="sub-week">1W</th><th class="sub-week month-end">2W</th>`).join('');
+
+      thead.innerHTML = `
+        <tr>
+          <th rowspan="2" style="width: 225px;">과제명 (클릭 시 정의서 이동)</th>
+          <th rowspan="2" style="width: 65px;">우선순위</th>
+          <th rowspan="2" style="width: 60px;">ID</th>
+          <th rowspan="2" style="width: 280px;">단계별 주요 작업 내용</th>
+          <th rowspan="2" style="width: 85px;" class="month-end">구분</th>
+          ${monthHeaders}
+        </tr>
+        <tr>
+          ${weekHeaders}
+        </tr>
+      `;
+
+      let rowsHtml = '';
+      wbsTasks.forEach(task => {
+        const badgeCls = task.priority === 'P1' ? 'badge-p1' : (task.priority === 'P2' ? 'badge-p2' : 'badge-p3');
+
+        let masterCells = '';
+        for (let i = 0; i < monthsList.length * 2; i++) {
+          const isMonthEnd = (i % 2 === 1) ? 'month-end' : '';
+          const inRange = (i >= task.totalRange[0] && i <= task.totalRange[1]);
+          masterCells += `<td class="gantt-cell ${isMonthEnd}">${inRange ? '<span class="gantt-bar master-summary bar-total"></span>' : ''}</td>`;
+        }
+
+        rowsHtml += `
+          <tr class="master-row" data-priority="${task.priority}" data-group="${task.id}">
+            <td>
+              <div class="project-cell-wrap">
+                <button class="toggle-sub-btn" id="toggle-btn-${task.id}" onclick="toggleSubRows('${task.id}')" title="세부 작업 펼치기/접기">+</button>
+                <button class="task-link-btn" onclick="showView('${task.id}')">📄 ${task.name}</button>
+              </div>
+            </td>
+            <td style="text-align:center;"><span class="badge ${badgeCls}">${task.priority}</span></td>
+            <td style="text-align:center; font-weight:700; color:#0f172a;">전체</td>
+            <td style="font-weight:600; color:#0f172a;">${task.summary}</td>
+            <td style="text-align:center; font-weight:600;" class="month-end">${task.periodText}</td>
+            ${masterCells}
+          </tr>
+        `;
+
+        task.subTasks.forEach(sub => {
+          let subCells = '';
+          for (let i = 0; i < monthsList.length * 2; i++) {
+            const isMonthEnd = (i % 2 === 1) ? 'month-end' : '';
+            const inRange = (i >= sub.range[0] && i <= sub.range[1]);
+            subCells += `<td class="gantt-cell ${isMonthEnd}">${inRange ? `<span class="gantt-bar ${sub.barClass}"></span>` : ''}</td>`;
+          }
+
+          rowsHtml += `
+            <tr class="sub-row collapsed" data-priority="${task.priority}" data-parent="${task.id}">
+              <td style="background:#f8fafc;"></td>
+              <td></td>
+              <td style="text-align:center; font-weight:600;">${sub.wbsId}</td>
+              <td>${sub.title}</td>
+              <td style="text-align:center;" class="month-end">${sub.type}</td>
+              ${subCells}
+            </tr>
+          `;
+        });
+      });
+
+      tbody.innerHTML = rowsHtml;
+    }
+
+    function toggleSubRows(taskId) {
+      const subRows = document.querySelectorAll(`tr.sub-row[data-parent="${taskId}"]`);
+      const btn = document.getElementById(`toggle-btn-${taskId}`);
+      if (!subRows.length) return;
+
+      const isCurrentlyCollapsed = subRows[0].classList.contains('collapsed');
+      subRows.forEach(row => {
+        if (isCurrentlyCollapsed) {
+          row.classList.remove('collapsed');
+        } else {
+          row.classList.add('collapsed');
+        }
+      });
+      btn.textContent = isCurrentlyCollapsed ? '−' : '+';
+    }
+
+    let allExpanded = false;
+    function toggleAllSubRows() {
+      allExpanded = !allExpanded;
+      wbsTasks.forEach(task => {
+        const masterRow = document.querySelector(`tr.master-row[data-group="${task.id}"]`);
+        if (masterRow && masterRow.classList.contains('hidden')) return;
+
+        const subRows = document.querySelectorAll(`tr.sub-row[data-parent="${task.id}"]`);
+        const btn = document.getElementById(`toggle-btn-${task.id}`);
+        subRows.forEach(row => {
+          if (allExpanded) {
+            row.classList.remove('collapsed');
+          } else {
+            row.classList.add('collapsed');
+          }
+        });
+        if (btn) btn.textContent = allExpanded ? '−' : '+';
+      });
+
+      const expandBtn = document.getElementById('btnExpandAll');
+      expandBtn.textContent = allExpanded ? '➖ 세부 작업 전체 접기' : '➕ 세부 작업 전체 펼치기';
+    }
+
+    function filterWbs(priority, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      wbsTasks.forEach(task => {
+        const match = (priority === 'ALL' || task.priority === priority);
+        const masterRow = document.querySelector(`tr.master-row[data-group="${task.id}"]`);
+        const subRows = document.querySelectorAll(`tr.sub-row[data-parent="${task.id}"]`);
+        const toggleBtn = document.getElementById(`toggle-btn-${task.id}`);
+
+        if (match) {
+          masterRow.classList.remove('hidden');
+          subRows.forEach(r => {
+            r.classList.remove('hidden');
+            if (!allExpanded) r.classList.add('collapsed');
+          });
+          if (toggleBtn) toggleBtn.textContent = allExpanded ? '−' : '+';
+        } else {
+          masterRow.classList.add('hidden');
+          subRows.forEach(r => r.classList.add('hidden'));
+        }
+      });
+    }
+
+    function goBackToWbs() {
+      if (window.history.state && window.history.state.view && window.history.state.view !== 'wbs') {
+        window.history.back();
+      } else {
+        showView('wbs', false, true);
+      }
+    }
+
+    window.addEventListener('popstate', function(event) {
+      const targetView = (event.state && event.state.view) ? event.state.view : 'wbs';
+      showView(targetView, false, true);
+    });
+
+    function showView(viewId, preserveScroll = false, skipHistory = false) {
+      currentActiveViewId = viewId;
+      if (!skipHistory) {
+        const currentStateView = window.history.state ? window.history.state.view : 'wbs';
+        if (currentStateView !== viewId) {
+          window.history.pushState({ view: viewId }, '', viewId === 'wbs' ? '#wbs' : `#${viewId}`);
+        }
+      }
+
+      const wbsView = document.getElementById('view-wbs');
+      const detailView = document.getElementById('view-detail');
+
+      if (viewId === 'wbs') {
+        wbsView.classList.remove('hidden');
+        detailView.classList.add('hidden');
+        if (!preserveScroll) window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+
+      const data = projectsData[viewId];
+      if (!data) return;
+
+      const badgesHtml = data.badges.map(b => `<span class="badge ${b.cls}">${b.text}</span>`).join('');
+
+      const sec1Html = data.sec1.map(card => `
+        <div class="info-card ${card.highlight ? 'highlight' : ''}">
+          <h3>${card.title}</h3>
+          <ul class="clean-list">
+            ${card.items.map(it => `<li><strong>${it.bold}</strong> ${it.desc}</li>`).join('')}
+          </ul>
+        </div>
+      `).join('');
+
+      const sec2Html = data.sec2.map(card => `
+        <div class="info-card">
+          <h3>${card.title}</h3>
+          <p>${card.desc}</p>
+        </div>
+      `).join('');
+
+      let visualHtml = '';
+      if (data.sec3.visualType === 'compare') {
+        visualHtml = `
+          <div class="arch-box">
+            <div class="arch-title">${data.sec3.visualTitle}</div>
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th style="width: 18%;">구분</th>
+                  <th style="width: 41%;">AS-IS (기존 이원화 구조)</th>
+                  <th class="tobe-col" style="width: 41%;">TO-BE (단일 콘솔 통합 구조)</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${data.sec3.compareRows.map(r => `
+                  <tr>
+                    <td><strong>${r.category}</strong></td>
+                    <td>${r.asis}</td>
+                    <td class="tobe-cell"><strong>${r.tobe}</strong></td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        `;
+      } else {
+        visualHtml = `
+          <div class="arch-box">
+            <div class="arch-title">${data.sec3.visualTitle}</div>
+            <div class="arch-flow">
+              <div class="arch-col">
+                <h4>${data.sec3.archLeft.title}</h4>
+                ${data.sec3.archLeft.pills.map(p => `<div class="arch-pill">${p}</div>`).join('')}
+              </div>
+              <div class="arch-arrow">→</div>
+              <div class="arch-col hub">
+                <h4>${data.sec3.archCenter.title}</h4>
+                ${data.sec3.archCenter.pills.map(p => `<div class="arch-pill">${p}</div>`).join('')}
+              </div>
+              <div class="arch-arrow">→</div>
+              <div class="arch-col">
+                <h4>${data.sec3.archRight.title}</h4>
+                ${data.sec3.archRight.pills.map(p => `<div class="arch-pill">${p}</div>`).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      const sec3CardsHtml = data.sec3.cards.map(card => `
+        <div class="info-card">
+          <h3>${card.title}</h3>
+          <ul class="clean-list">
+            ${card.items.map(it => `
+              <li>
+                <strong>${it.bold}</strong> ${it.desc}
+                ${it.subItems ? `<ul class="sub-list">${it.subItems.map(sub => `<li>${sub}</li>`).join('')}</ul>` : ''}
+              </li>
+            `).join('')}
+          </ul>
+        </div>
+      `).join('');
+
+      const calloutHtml = data.sec3.callout.map(c => `<li>${c}</li>`).join('');
+
+      // 체크리스트(커스텀 항목 포함) 및 목표 일정 로컬스토리지 병합
+      const savedDates = getSavedDates(viewId);
+      const savedOwners = getSavedOwners(viewId);
+      let totalChecks = 0;
+      let doneChecks = 0;
+
+      const filterOnlyUndone = window.currentUndoneFilter || false;
+      const visibleMilestones = data.milestones.map((m, mIdx) => {
+        const tasks = getMergedTasksForRow(viewId, mIdx);
+        tasks.forEach(t => {
+          totalChecks++;
+          if (t.done) doneChecks++;
+        });
+        return { ...m, mIdx, tasks };
+      }).filter(m => {
+        if (!filterOnlyUndone) return true;
+        return m.tasks.some(t => !t.done);
+      });
+
+      const stepCounts = {};
+      visibleMilestones.forEach(m => {
+        stepCounts[m.step] = (stepCounts[m.step] || 0) + 1;
+      });
+      const stepRendered = {};
+
+      const milestonesHtml = visibleMilestones.map(m => {
+        let stepTd = '';
+        if (!stepRendered[m.step]) {
+          stepRendered[m.step] = true;
+          stepTd = `<td class="step-cell" rowspan="${stepCounts[m.step]}">${m.step}</td>`;
+        }
+
+        const rowTotal = m.tasks.length;
+        const rowDone = m.tasks.filter(t => t.done).length;
+        let statusBadge = `<span class="status-pill status-wait">대기 (${rowDone}/${rowTotal})</span>`;
+        if (rowDone > 0 && rowDone < rowTotal) {
+          statusBadge = `<span class="status-pill status-ing">진행중 (${rowDone}/${rowTotal})</span>`;
+        } else if (rowTotal > 0 && rowDone === rowTotal) {
+          statusBadge = `<span class="status-pill status-done">완료 (${rowDone}/${rowTotal})</span>`;
+        }
+
+        const checklistHtml = `
+          <ul class="checklist-ul">
+            ${m.tasks.map((t, tIdx) => `
+              <li class="checklist-row-wrap ${t.done ? 'checked' : ''}" id="chk-row-${viewId}-${m.mIdx}-${tIdx}">
+                <div class="checklist-left">
+                  <input type="checkbox" ${t.done ? 'checked' : ''} onchange="toggleActionCheck('${viewId}', ${m.mIdx}, ${tIdx})" />
+                  <span class="checklist-text" onclick="startEditCheckText('${viewId}', ${m.mIdx}, ${tIdx})" title="클릭하여 내용 수정">${escapeHtmlAttr(t.text)}${t.owner ? `<span class="owner-tag">@${escapeHtmlAttr(t.owner)}</span>` : ''}</span>
+                </div>
+                <div class="chk-actions">
+                  <button class="btn-chk-mini" onclick="editCheckOwner('${viewId}', ${m.mIdx}, ${tIdx})" title="개별 담당자 지정">@</button>
+                  <button class="btn-chk-mini del" onclick="deleteActionCheck('${viewId}', ${m.mIdx}, ${tIdx})" title="항목 삭제">×</button>
+                </div>
+              </li>
+            `).join('')}
+          </ul>
+        `;
+
+        return `
+          <tr>
+            ${stepTd}
+            <td class="id-cell">${m.id || '-'}</td>
+            <td>
+              <div class="title-cell-wrap">
+                <div>
+                  <strong>${m.title || m.step}</strong><br/>
+                  ${statusBadge}
+                </div>
+                <button class="btn-add-subtask" onclick="addActionCheck('${viewId}', ${m.mIdx})" title="세부 액션 아이템 추가">+</button>
+              </div>
+            </td>
+            <td>${checklistHtml}</td>
+            <td id="owner-cell-${viewId}-${m.mIdx}">
+              ${renderOwnerDisplay(viewId, m.mIdx, savedOwners.hasOwnProperty(m.mIdx) ? savedOwners[m.mIdx] : (m.owner || m.note || ''))}
+            </td>
+            <td id="date-cell-${viewId}-${m.mIdx}">
+              ${renderDateDisplay(viewId, m.mIdx, savedDates.hasOwnProperty(m.mIdx) ? savedDates[m.mIdx] : (m.date || ''))}
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      const progressPct = totalChecks > 0 ? Math.round((doneChecks / totalChecks) * 100) : 0;
+
+      const mergedMeetings = getMergedMeetingsForView(viewId);
+      const meetingLogsHtml = (mergedMeetings && mergedMeetings.length > 0)
+        ? mergedMeetings.map((log, idx) => {
+            const formattedDate = formatMeetingDateDot(log.date);
+            const rawBodyText = Array.isArray(log.summary) ? log.summary.join('\n') : String(log.summary || '');
+            return `
+            <div class="meeting-item" id="meeting-card-${viewId}-${idx}">
+              <div class="meeting-header" onclick="toggleMeetingLog(${idx})">
+                <div class="meeting-header-left">
+                  <span class="meeting-toggle-icon" id="meeting-icon-${idx}">+</span>
+                  <span class="meeting-title">🗓️ ${escapeHtmlAttr(log.title)}</span>
+                </div>
+                <div class="meeting-header-right">
+                  <span class="meeting-meta">${escapeHtmlAttr(log.participants)} · ${escapeHtmlAttr(formattedDate)}</span>
+                  <button class="btn-meeting-edit" onclick="event.stopPropagation(); startEditMeeting('${viewId}', ${idx})">수정</button>
+                </div>
+              </div>
+              <div class="meeting-body collapsed" id="meeting-body-${idx}">
+                <div class="meeting-content-pre">${escapeHtmlAttr(rawBodyText)}</div>
+              </div>
+            </div>
+          `;
+          }).join('')
+        : `<div class="schedule-notice">등록된 회의록이 없습니다</div>`;
+
+      detailView.innerHTML = `
+        <header class="doc-header">
+          <div class="brand">${data.brand}</div>
+          <h1>${data.title}</h1>
+          <div class="header-bottom-bar">
+            <div class="badge-group">${badgesHtml}</div>
+            <button class="btn-header-wbs" onclick="goBackToWbs()">← 통합 WBS 목록</button>
+          </div>
+        </header>
+
+        <div class="doc-body">
+          <section>
+            <h2 class="section-title"><span class="section-num">1</span> 추진 배경 및 현황</h2>
+            <div class="two-col">${sec1Html}</div>
+          </section>
+
+          <section>
+            <h2 class="section-title"><span class="section-num">2</span> 핵심 목표 및 기대효과</h2>
+            <div class="three-col">${sec2Html}</div>
+          </section>
+
+          <section>
+            <h2 class="section-title"><span class="section-num">3</span> 주요 작업 내용</h2>
+            ${visualHtml}
+            <div class="two-col">${sec3CardsHtml}</div>
+            <div class="callout">
+              <div class="callout-title">⚠️ 정책 및 의사결정 필요 사항</div>
+              <ul>${calloutHtml}</ul>
+            </div>
+          </section>
+
+          <section>
+            <h2 class="section-title"><span class="section-num">4</span> 상세 일정 및 액션 아이템</h2>
+            <div class="schedule-notice">📅 <strong>일정 운영 방향:</strong> ${data.scheduleNotice}</div>
+            <div class="milestone-header-bar">
+              <div class="progress-summary">
+                <span>📊 액션 아이템 진척률: ${doneChecks}/${totalChecks} 완료 (${progressPct}%)</span>
+                <div class="progress-bar-wrap">
+                  <div class="progress-bar-fill" style="width: ${progressPct}%;"></div>
+                </div>
+              </div>
+              <div class="tracker-controls">
+                <button class="btn-tracker ${!filterOnlyUndone ? 'active' : ''}" onclick="setUndoneFilter('${viewId}', false)">전체 보기</button>
+                <button class="btn-tracker ${filterOnlyUndone ? 'active' : ''}" onclick="setUndoneFilter('${viewId}', true)">미완료만 보기</button>
+                <button class="btn-tracker" onclick="exportChecksJson()">💾 진행상태 백업(.json)</button>
+                <button class="btn-tracker" onclick="document.getElementById('importJsonInput').click()">📂 불러오기</button>
+                <input type="file" id="importJsonInput" accept=".json" class="hidden" onchange="importChecksJson(event, '${viewId}')" />
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table class="detail-table">
+                <thead>
+                  <tr>
+                    <th style="width: 15%;">단계</th>
+                    <th style="width: 6%; text-align:center;">ID</th>
+                    <th style="width: 21%;">작업 타이틀</th>
+                    <th style="width: 34%;">세부 액션 아이템 (체크리스트)</th>
+                    <th style="width: 13%;">담당자</th>
+                    <th style="width: 11%;">목표 일정</th>
+                  </tr>
+                </thead>
+                <tbody>${milestonesHtml || '<tr><td colspan="6" style="text-align:center; padding:20px;">모든 액션 아이템이 완료되었습니다 🎉</td></tr>'}</tbody>
+              </table>
+            </div>
+          </section>
+
+          <section>
+            <h2 class="section-title"><span class="section-num">5</span> 회의록 아카이브</h2>
+            <div class="meeting-list">${meetingLogsHtml}</div>
+          </section>
+        </div>
+      `;
+
+      wbsView.classList.add('hidden');
+      detailView.classList.remove('hidden');
+      if (!preserveScroll) window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    const STORAGE_KEY = 'digitalzone_wbs_action_checks_v1';
+    const CUSTOM_TASKS_KEY = 'digitalzone_wbs_custom_tasks_v1';
+    const DATES_STORAGE_KEY = 'digitalzone_wbs_custom_dates_v1';
+    const OWNERS_STORAGE_KEY = 'digitalzone_wbs_custom_owners_v1';
+    const MEETINGS_STORAGE_KEY = 'digitalzone_wbs_custom_meetings_v1';
+    const REMOTE_URL_KEY = 'digitalzone_wbs_remote_db_url';
+    // 배포 시 팀 전체에 기본 적용하려면 아래 변수에 Firebase Realtime DB URL을 직접 입력하세요
+    const DEFAULT_REMOTE_DB_URL = '';
+
+    let currentActiveViewId = 'wbs';
+
+    function getRemoteDbUrl() {
+      return localStorage.getItem(REMOTE_URL_KEY) || DEFAULT_REMOTE_DB_URL || '';
+    }
+
+    async function pullFromRemoteDb() {
+      const baseUrl = getRemoteDbUrl();
+      if (!baseUrl) return;
+      try {
+        const res = await fetch(`${baseUrl}/digitalzone_state.json`);
+        if (!res.ok) return;
+        const remoteData = await res.json();
+        if (remoteData && typeof remoteData === 'object') {
+          if (remoteData.checks) localStorage.setItem(STORAGE_KEY, JSON.stringify(remoteData.checks));
+          if (remoteData.customTasks) localStorage.setItem(CUSTOM_TASKS_KEY, JSON.stringify(remoteData.customTasks));
+          if (remoteData.dates) localStorage.setItem(DATES_STORAGE_KEY, JSON.stringify(remoteData.dates));
+          if (remoteData.owners) localStorage.setItem(OWNERS_STORAGE_KEY, JSON.stringify(remoteData.owners));
+          if (remoteData.meetings) localStorage.setItem(MEETINGS_STORAGE_KEY, JSON.stringify(remoteData.meetings));
+        }
+        if (currentActiveViewId !== 'wbs') {
+          showView(currentActiveViewId, true, true);
+        }
+      } catch (e) {}
+    }
+
+    async function pushAllStateToRemoteDb() {
+      const baseUrl = getRemoteDbUrl();
+      if (!baseUrl) return;
+      const payload = {
+        checks: getAllSavedChecks(),
+        customTasks: getAllCustomTasks(),
+        dates: getAllSavedDates(),
+        owners: getAllSavedOwners(),
+        meetings: getAllSavedMeetings()
+      };
+      try {
+        await fetch(`${baseUrl}/digitalzone_state.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      } catch (e) {}
+    }
+
+    function getAllSavedChecks() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch (e) { return {}; }
+    }
+
+    function getAllCustomTasks() {
+      try { return JSON.parse(localStorage.getItem(CUSTOM_TASKS_KEY) || '{}'); } catch (e) { return {}; }
+    }
+
+    function getAllSavedDates() {
+      try { return JSON.parse(localStorage.getItem(DATES_STORAGE_KEY) || '{}'); } catch (e) { return {}; }
+    }
+
+    function getSavedDates(viewId) {
+      return getAllSavedDates()[viewId] || {};
+    }
+
+    function getAllSavedOwners() {
+      try { return JSON.parse(localStorage.getItem(OWNERS_STORAGE_KEY) || '{}'); } catch (e) { return {}; }
+    }
+
+    function getSavedOwners(viewId) {
+      return getAllSavedOwners()[viewId] || {};
+    }
+
+    function getAllSavedMeetings() {
+      try { return JSON.parse(localStorage.getItem(MEETINGS_STORAGE_KEY) || '{}'); } catch (e) { return {}; }
+    }
+
+    function formatMeetingDateDot(dateStr) {
+      const s = String(dateStr || '').trim();
+      if (!s) return '';
+      if (/^\d{4}\.\d{2}\.\d{2}$/.test(s)) return s + '.';
+      return s;
+    }
+
+    function getMergedMeetingsForView(viewId) {
+      const allCustomMeetings = getAllSavedMeetings();
+      if (allCustomMeetings[viewId] && Array.isArray(allCustomMeetings[viewId])) {
+        return allCustomMeetings[viewId];
+      }
+      return (projectsData[viewId] && projectsData[viewId].meetingLogs) ? projectsData[viewId].meetingLogs : [];
+    }
+
+    function saveMeetingsForView(viewId, list) {
+      const all = getAllSavedMeetings();
+      all[viewId] = list;
+      localStorage.setItem(MEETINGS_STORAGE_KEY, JSON.stringify(all));
+      pushAllStateToRemoteDb();
+    }
+
+    function startEditMeeting(viewId, idx) {
+      const card = document.getElementById(`meeting-card-${viewId}-${idx}`);
+      if (!card) return;
+      const list = getMergedMeetingsForView(viewId);
+      const log = list[idx];
+      if (!log) return;
+
+      const rawBodyText = Array.isArray(log.summary) ? log.summary.join('\n') : String(log.summary || '');
+      const formattedDate = formatMeetingDateDot(log.date);
+
+      card.innerHTML = `
+        <div class="meeting-edit-form" onclick="event.stopPropagation()">
+          <div class="meeting-edit-grid" style="grid-template-columns: 2fr 1.5fr 1fr;">
+            <input type="text" class="meeting-input" id="m-edit-title-${idx}" value="${escapeHtmlAttr(log.title)}" placeholder="회의 제목" />
+            <input type="text" class="meeting-input" id="m-edit-part-${idx}" value="${escapeHtmlAttr(log.participants)}" placeholder="참석자" />
+            <input type="text" class="meeting-input" id="m-edit-date-${idx}" value="${escapeHtmlAttr(formattedDate)}" placeholder="yyyy.mm.dd." />
+          </div>
+          <textarea class="meeting-textarea" id="m-edit-sum-${idx}" placeholder="회의 내용을 자유롭게 입력하세요 (줄바꿈 및 들여쓰기 그대로 유지)">${escapeHtmlAttr(rawBodyText)}</textarea>
+          <div class="meeting-edit-actions">
+            <button class="btn-tracker" onclick="cancelEditMeeting('${viewId}')">취소</button>
+            <button class="btn-tracker active" onclick="commitEditMeeting('${viewId}', ${idx})">저장</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function cancelEditMeeting(viewId) {
+      showView(viewId, true, true);
+    }
+
+    function commitEditMeeting(viewId, idx) {
+      const titleEl = document.getElementById(`m-edit-title-${idx}`);
+      const dateEl = document.getElementById(`m-edit-date-${idx}`);
+      const partEl = document.getElementById(`m-edit-part-${idx}`);
+      const sumEl = document.getElementById(`m-edit-sum-${idx}`);
+      if (!titleEl || !dateEl || !partEl || !sumEl) return;
+
+      const list = JSON.parse(JSON.stringify(getMergedMeetingsForView(viewId)));
+      if (!list[idx]) return;
+
+      list[idx].title = titleEl.value.trim() || list[idx].title;
+      list[idx].participants = partEl.value.trim();
+      list[idx].date = formatMeetingDateDot(dateEl.value.trim());
+      list[idx].summary = sumEl.value;
+
+      saveMeetingsForView(viewId, list);
+      showView(viewId, true, true);
+
+      const body = document.getElementById(`meeting-body-${idx}`);
+      const icon = document.getElementById(`meeting-icon-${idx}`);
+      if (body) body.classList.remove('collapsed');
+      if (icon) icon.textContent = '−';
+    }
+
+    function renderOwnerDisplay(viewId, mIdx, ownerVal) {
+      const cleanVal = (ownerVal || '').trim();
+      return `
+        <div class="owner-editable" onclick="startEditOwner('${viewId}', ${mIdx})" title="클릭하여 담당자 수정">
+          ${cleanVal ? escapeHtmlAttr(cleanVal) : '&nbsp;'}
+        </div>
+      `;
+    }
+
+    function startEditOwner(viewId, mIdx) {
+      const cell = document.getElementById(`owner-cell-${viewId}-${mIdx}`);
+      if (!cell) return;
+      const savedOwners = getSavedOwners(viewId);
+      const defaultOwner = (projectsData[viewId] && projectsData[viewId].milestones[mIdx])
+        ? (projectsData[viewId].milestones[mIdx].owner || projectsData[viewId].milestones[mIdx].note || '')
+        : '';
+      const currentVal = savedOwners.hasOwnProperty(mIdx) ? savedOwners[mIdx] : defaultOwner;
+
+      cell.innerHTML = `
+        <input
+          type="text"
+          id="owner-input-${viewId}-${mIdx}"
+          class="owner-input-inline"
+          value="${escapeHtmlAttr(currentVal)}"
+          placeholder="담당자 입력"
+          onblur="commitEditOwner('${viewId}', ${mIdx})"
+          onkeydown="handleOwnerKeydown(event, '${viewId}', ${mIdx})"
+        />
+      `;
+      const input = document.getElementById(`owner-input-${viewId}-${mIdx}`);
+      if (input) {
+        input.focus();
+        input.select();
+      }
+    }
+
+    function handleOwnerKeydown(event, viewId, mIdx) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        commitEditOwner(viewId, mIdx);
+      } else if (event.key === 'Escape') {
+        event.preventDefault();
+        const savedOwners = getSavedOwners(viewId);
+        const defaultOwner = (projectsData[viewId] && projectsData[viewId].milestones[mIdx])
+          ? (projectsData[viewId].milestones[mIdx].owner || projectsData[viewId].milestones[mIdx].note || '')
+          : '';
+        const prevVal = savedOwners.hasOwnProperty(mIdx) ? savedOwners[mIdx] : defaultOwner;
+        const cell = document.getElementById(`owner-cell-${viewId}-${mIdx}`);
+        if (cell) cell.innerHTML = renderOwnerDisplay(viewId, mIdx, prevVal);
+      }
+    }
+
+    function commitEditOwner(viewId, mIdx) {
+      const input = document.getElementById(`owner-input-${viewId}-${mIdx}`);
+      if (!input) return;
+      const newVal = input.value.trim();
+
+      const allOwners = getAllSavedOwners();
+      if (!allOwners[viewId]) allOwners[viewId] = {};
+      allOwners[viewId][mIdx] = newVal;
+      localStorage.setItem(OWNERS_STORAGE_KEY, JSON.stringify(allOwners));
+
+      const cell = document.getElementById(`owner-cell-${viewId}-${mIdx}`);
+      if (cell) cell.innerHTML = renderOwnerDisplay(viewId, mIdx, newVal);
+
+      pushAllStateToRemoteDb();
+    }
+
+    function getMergedTasksForRow(viewId, mIdx) {
+      const allCustom = getAllCustomTasks();
+      if (allCustom[viewId] && Array.isArray(allCustom[viewId][mIdx])) {
+        return allCustom[viewId][mIdx].map(t => ({
+          text: t.text,
+          done: !!t.done,
+          owner: t.owner || ''
+        }));
+      }
+      const m = projectsData[viewId].milestones[mIdx];
+      const savedChecks = getAllSavedChecks()[viewId] || {};
+      const baseTasks = m.tasks ? m.tasks : [{ text: m.desc || '', done: false }];
+      return baseTasks.map((t, tIdx) => {
+        const key = `${mIdx}-${tIdx}`;
+        const isDone = savedChecks.hasOwnProperty(key) ? savedChecks[key] : !!t.done;
+        return { text: t.text, done: isDone, owner: t.owner || '' };
+      });
+    }
+
+    function saveCustomTasksForRow(viewId, mIdx, tasksList) {
+      const allCustom = getAllCustomTasks();
+      if (!allCustom[viewId]) allCustom[viewId] = {};
+      allCustom[viewId][mIdx] = tasksList;
+      localStorage.setItem(CUSTOM_TASKS_KEY, JSON.stringify(allCustom));
+      pushAllStateToRemoteDb();
+    }
+
+    function toggleActionCheck(viewId, mIdx, tIdx) {
+      const tasks = getMergedTasksForRow(viewId, mIdx);
+      if (!tasks[tIdx]) return;
+      tasks[tIdx].done = !tasks[tIdx].done;
+      saveCustomTasksForRow(viewId, mIdx, tasks);
+      showView(viewId, true, true);
+    }
+
+    function editCheckOwner(viewId, mIdx, tIdx) {
+      const tasks = getMergedTasksForRow(viewId, mIdx);
+      if (!tasks[tIdx]) return;
+      const currentOwner = tasks[tIdx].owner || '';
+      const inputOwner = prompt('이 세부 항목의 별도 담당자를 입력하세요 (비우면 대표 담당자 따름):', currentOwner);
+      if (inputOwner === null) return;
+      tasks[tIdx].owner = inputOwner.trim().replace(/^@/, '');
+      saveCustomTasksForRow(viewId, mIdx, tasks);
+      showView(viewId, true, true);
+    }
+
+    function startEditCheckText(viewId, mIdx, tIdx) {
+      const rowEl = document.getElementById(`chk-row-${viewId}-${mIdx}-${tIdx}`);
+      if (!rowEl) return;
+      const tasks = getMergedTasksForRow(viewId, mIdx);
+      const currentText = tasks[tIdx] ? tasks[tIdx].text : '';
+      rowEl.innerHTML = `
+        <input type="text" class="checklist-inline-input" id="chk-input-${viewId}-${mIdx}-${tIdx}"
+          value="${escapeHtmlAttr(currentText)}"
+          onblur="commitEditCheckText('${viewId}', ${mIdx}, ${tIdx})"
+          onkeydown="handleCheckTextKeydown(event, '${viewId}', ${mIdx}, ${tIdx})" />
+      `;
+      const input = document.getElementById(`chk-input-${viewId}-${mIdx}-${tIdx}`);
+      if (input) { input.focus(); input.select(); }
+    }
+
+    function handleCheckTextKeydown(event, viewId, mIdx, tIdx) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        commitEditCheckText(viewId, mIdx, tIdx);
+      } else if (event.key === 'Escape') {
+        event.preventDefault();
+        showView(viewId, true, true);
+      }
+    }
+
+    function commitEditCheckText(viewId, mIdx, tIdx) {
+      const input = document.getElementById(`chk-input-${viewId}-${mIdx}-${tIdx}`);
+      if (!input) return;
+      const newText = input.value.trim();
+      const tasks = getMergedTasksForRow(viewId, mIdx);
+      if (newText === '') {
+        tasks.splice(tIdx, 1);
+      } else if (tasks[tIdx]) {
+        tasks[tIdx].text = newText;
+      }
+      saveCustomTasksForRow(viewId, mIdx, tasks);
+      showView(viewId, true, true);
+    }
+
+    function addActionCheck(viewId, mIdx) {
+      const tasks = getMergedTasksForRow(viewId, mIdx);
+      const newIdx = tasks.length;
+      tasks.push({ text: '', done: false, owner: '' });
+      saveCustomTasksForRow(viewId, mIdx, tasks);
+      showView(viewId, true, true);
+      startEditCheckText(viewId, mIdx, newIdx);
+    }
+
+    function deleteActionCheck(viewId, mIdx, tIdx) {
+      const tasks = getMergedTasksForRow(viewId, mIdx);
+      tasks.splice(tIdx, 1);
+      saveCustomTasksForRow(viewId, mIdx, tasks);
+      showView(viewId, true, true);
+    }
+
+    function escapeHtmlAttr(str) {
+      return String(str || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function formatDigitsToTemplate(digits) {
+      const d = String(digits || '').replace(/\D/g, '').slice(0, 7);
+      if (!d) return '';
+      if (d.length <= 4) return d;
+      if (d.length <= 6) return `${d.slice(0, 4)}.${d.slice(4)}`;
+      return `${d.slice(0, 4)}.${d.slice(4, 6)}. ${d.slice(6, 7)}W`;
+    }
+
+    function renderDateDisplay(viewId, mIdx, dateVal) {
+      const cleanVal = (dateVal || '').trim();
+      const isEmpty = cleanVal === '';
+      return `
+        <div class="date-editable ${isEmpty ? 'empty' : ''}" onclick="startEditDate('${viewId}', ${mIdx})">
+          <span>${isEmpty ? '&nbsp;' : escapeHtmlAttr(cleanVal)}</span>
+        </div>
+      `;
+    }
+
+    function startEditDate(viewId, mIdx) {
+      const cell = document.getElementById(`date-cell-${viewId}-${mIdx}`);
+      if (!cell) return;
+      const savedDates = getSavedDates(viewId);
+      const defaultDate = (projectsData[viewId] && projectsData[viewId].milestones[mIdx])
+        ? (projectsData[viewId].milestones[mIdx].date || '')
+        : '';
+      const currentVal = savedDates.hasOwnProperty(mIdx) ? savedDates[mIdx] : defaultDate;
+      const formattedInit = formatDigitsToTemplate(currentVal);
+
+      cell.innerHTML = `
+        <input
+          type="text"
+          inputmode="numeric"
+          id="date-single-${viewId}-${mIdx}"
+          class="date-single-input"
+          value="${escapeHtmlAttr(formattedInit)}"
+          placeholder="2026012"
+          oninput="onSingleDateInput(this)"
+          onblur="commitEditDate('${viewId}', ${mIdx})"
+          onkeydown="handleSingleDateKeydown(event, '${viewId}', ${mIdx})"
+        />
+      `;
+      const input = document.getElementById(`date-single-${viewId}-${mIdx}`);
+      if (input) {
+        input.focus();
+        input.select();
+      }
+    }
+
+    function onSingleDateInput(el) {
+      const digits = el.value.replace(/\D/g, '').slice(0, 7);
+      el.value = formatDigitsToTemplate(digits);
+    }
+
+    function handleSingleDateKeydown(event, viewId, mIdx) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        commitEditDate(viewId, mIdx);
+      } else if (event.key === 'Escape') {
+        event.preventDefault();
+        const savedDates = getSavedDates(viewId);
+        const defaultDate = (projectsData[viewId] && projectsData[viewId].milestones[mIdx])
+          ? (projectsData[viewId].milestones[mIdx].date || '')
+          : '';
+        const prevVal = savedDates.hasOwnProperty(mIdx) ? savedDates[mIdx] : defaultDate;
+        const cell = document.getElementById(`date-cell-${viewId}-${mIdx}`);
+        if (cell) cell.innerHTML = renderDateDisplay(viewId, mIdx, prevVal);
+      }
+    }
+
+    function commitEditDate(viewId, mIdx) {
+      const input = document.getElementById(`date-single-${viewId}-${mIdx}`);
+      if (!input) return;
+      const digits = input.value.replace(/\D/g, '').slice(0, 7);
+      const formatted = formatDigitsToTemplate(digits);
+
+      const allDates = getAllSavedDates();
+      if (!allDates[viewId]) allDates[viewId] = {};
+      allDates[viewId][mIdx] = formatted;
+      localStorage.setItem(DATES_STORAGE_KEY, JSON.stringify(allDates));
+
+      const cell = document.getElementById(`date-cell-${viewId}-${mIdx}`);
+      if (cell) cell.innerHTML = renderDateDisplay(viewId, mIdx, formatted);
+
+      pushAllStateToRemoteDb();
+    }
+
+    function setUndoneFilter(viewId, onlyUndone) {
+      window.currentUndoneFilter = onlyUndone;
+      showView(viewId, true, true);
+    }
+
+    function exportChecksJson() {
+      const payload = {
+        checks: getAllSavedChecks(),
+        customTasks: getAllCustomTasks(),
+        dates: getAllSavedDates(),
+        owners: getAllSavedOwners(),
+        meetings: getAllSavedMeetings()
+      };
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, '0');
+      const dd = String(today.getDate()).padStart(2, '0');
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `digitalzone_backup_${yyyy}-${mm}-${dd}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function importChecksJson(event, viewId) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          if (parsed.checks) localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed.checks));
+          if (parsed.customTasks) localStorage.setItem(CUSTOM_TASKS_KEY, JSON.stringify(parsed.customTasks));
+          if (parsed.dates) localStorage.setItem(DATES_STORAGE_KEY, JSON.stringify(parsed.dates));
+          if (parsed.owners) localStorage.setItem(OWNERS_STORAGE_KEY, JSON.stringify(parsed.owners));
+          if (parsed.meetings) localStorage.setItem(MEETINGS_STORAGE_KEY, JSON.stringify(parsed.meetings));
+          alert('진행 상태 및 일정 데이터를 성공적으로 불러왔습니다');
+          showView(viewId, true, true);
+          pushAllStateToRemoteDb();
+        } catch (err) {
+          alert('유효하지 않은 JSON 파일입니다');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function toggleMeetingLog(idx) {
+      const body = document.getElementById(`meeting-body-${idx}`);
+      const icon = document.getElementById(`meeting-icon-${idx}`);
+      if (!body) return;
+      const isCollapsed = body.classList.contains('collapsed');
+      if (isCollapsed) {
+        body.classList.remove('collapsed');
+        if (icon) icon.textContent = '−';
+      } else {
+        body.classList.add('collapsed');
+        if (icon) icon.textContent = '+';
+      }
+    }
+
+    initSummaryCounts();
+    renderWbsTable();
+    const initialHash = window.location.hash.replace('#', '');
+    if (initialHash && projectsData[initialHash]) {
+      window.history.replaceState({ view: initialHash }, '', `#${initialHash}`);
+      showView(initialHash, false, true);
+    } else {
+      window.history.replaceState({ view: 'wbs' }, '', '#wbs');
+    }
+    pullFromRemoteDb();
+  </script>
+</body>
+</html>
