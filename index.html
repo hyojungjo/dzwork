@@ -1,0 +1,1706 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>디지털존 2027 개선 과제 통합 WBS 및 정의서 포털</title>
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-hover: #172554;
+      --primary-light: #eff6ff;
+      --accent: #ec4899;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-sub: #475569;
+      --border: #e2e8f0;
+      --p1-bg: #fee2e2; --p1-text: #b91c1c;
+      --p2-bg: #e0e7ff; --p2-text: #3730a3;
+      --p3-bg: #fef3c7; --p3-text: #b45309;
+      --budget-bg: #dcfce7; --budget-text: #15803d;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 24px 20px 60px;
+    }
+
+    /* Top Nav */
+    .top-nav {
+      max-width: 1380px;
+      margin: 0 auto 20px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+    }
+
+    .nav-brand {
+      font-weight: 800;
+      font-size: 16px;
+      color: var(--primary);
+      display: inline-flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .nav-brand span.accent { color: var(--accent); }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-nav-home {
+      background: var(--primary-light);
+      border: 1px solid #bfdbfe;
+      color: var(--primary);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 7px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-nav-home:hover {
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    .btn-print {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 7px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-print:hover {
+      background: var(--primary-light);
+      color: var(--primary);
+      border-color: #93c5fd;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1380px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(15, 23, 42, 0.06);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    /* Header */
+    .doc-header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      color: #ffffff;
+      padding: 32px 40px;
+    }
+
+    .doc-header .brand {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #93c5fd;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .doc-header .brand span.accent { color: #f472b6; }
+
+    .doc-header h1 {
+      font-size: 25px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+    }
+
+    .doc-header p.desc {
+      font-size: 14px;
+      color: #cbd5e1;
+      margin-bottom: 16px;
+    }
+
+    .badge-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .badge {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .badge-p1 { background: var(--p1-bg); color: var(--p1-text); }
+    .badge-p2 { background: var(--p2-bg); color: var(--p2-text); }
+    .badge-p3 { background: var(--p3-bg); color: var(--p3-text); }
+    .badge-budget { background: var(--budget-bg); color: var(--budget-text); }
+    .badge-status { background: #e0f2fe; color: #0369a1; }
+
+    /* Doc Body */
+    .doc-body { padding: 32px 36px; }
+
+    /* Control & Legend Top Bar */
+    .top-control-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 16px;
+      padding: 14px 18px;
+      background: var(--bg);
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+
+    .filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .filter-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-right: 4px;
+    }
+
+    .filter-btn {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      color: var(--text-sub);
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .filter-btn.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    .btn-expand-all {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .btn-expand-all:hover {
+      background: var(--primary-light);
+      color: var(--primary);
+      border-color: #93c5fd;
+    }
+
+    /* Legend in Top Bar */
+    .legend-box {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-sub);
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .legend-color {
+      width: 14px;
+      height: 11px;
+      border-radius: 3px;
+      display: inline-block;
+    }
+
+    .guide-notice {
+      font-size: 13px;
+      color: var(--primary);
+      font-weight: 600;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* WBS Table & Gantt */
+    .wbs-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    table.wbs-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+      min-width: 1300px;
+    }
+
+    table.wbs-table th {
+      background: #f1f5f9;
+      color: var(--text-main);
+      font-weight: 700;
+      padding: 9px 6px;
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    table.wbs-table th.sub-week {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-sub);
+      padding: 5px 2px;
+      background: #f8fafc;
+    }
+
+    table.wbs-table th:last-child { border-right: none; }
+
+    table.wbs-table td {
+      padding: 9px 8px;
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      color: var(--text-sub);
+      vertical-align: middle;
+    }
+
+    table.wbs-table td:last-child { border-right: none; }
+
+    /* Master Summary Row */
+    tr.master-row {
+      background: #ffffff;
+      border-top: 2px solid #cbd5e1;
+      transition: background 0.15s;
+    }
+
+    tr.master-row:hover {
+      background: #f8fafc;
+    }
+
+    /* Sub-task Rows */
+    tr.sub-row {
+      background: #fcfdff;
+    }
+
+    tr.sub-row.collapsed {
+      display: none;
+    }
+
+    .project-cell-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .toggle-sub-btn {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 11.5px;
+      font-weight: 700;
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.15s;
+    }
+
+    .toggle-sub-btn:hover {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    .task-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--primary-light);
+      color: var(--primary);
+      border: 1px solid #bfdbfe;
+      padding: 5px 10px;
+      border-radius: 7px;
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.15s;
+      flex-grow: 1;
+    }
+
+    .task-link-btn:hover {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    /* Gantt Cells */
+    td.gantt-cell {
+      padding: 5px 2px;
+      width: 28px;
+      min-width: 28px;
+      text-align: center;
+    }
+
+    td.month-end, th.month-end {
+      border-right: 1px solid #cbd5e1 !important;
+    }
+
+    .gantt-bar {
+      height: 15px;
+      border-radius: 3px;
+      width: 100%;
+      display: block;
+    }
+
+    .gantt-bar.master-summary {
+      height: 12px;
+      opacity: 0.85;
+    }
+
+    .bar-plan { background: #93c5fd; }
+    .bar-dev { background: #2563eb; }
+    .bar-qa { background: #f59e0b; }
+    .bar-launch { background: #10b981; }
+    .bar-total { background: #334155; }
+
+    /* One-Pager Detail Styles */
+    .back-bar {
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .btn-back {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-back:hover {
+      background: var(--primary-light);
+      color: var(--primary);
+      border-color: #bfdbfe;
+    }
+
+    section { margin-bottom: 36px; }
+    section:last-child { margin-bottom: 0; }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--primary-light);
+      margin-bottom: 18px;
+    }
+
+    .section-num {
+      background: var(--primary);
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 700;
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .three-col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .two-col, .three-col { grid-template-columns: 1fr; }
+      .doc-header, .doc-body { padding: 24px; }
+    }
+
+    .info-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+
+    .info-card.highlight {
+      background: var(--primary-light);
+      border-color: #bfdbfe;
+    }
+
+    .info-card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .info-card p, .info-card li {
+      font-size: 14px;
+      color: var(--text-sub);
+    }
+
+    ul.clean-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    ul.clean-list li {
+      position: relative;
+      padding-left: 16px;
+      font-size: 14px;
+      color: var(--text-main);
+    }
+
+    ul.clean-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    ul.sub-list {
+      list-style: none;
+      margin-top: 6px;
+      padding-left: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    ul.sub-list li {
+      font-size: 13.5px;
+      color: var(--text-sub);
+      padding-left: 12px;
+    }
+
+    ul.sub-list li::before {
+      content: "-";
+      color: var(--text-sub);
+    }
+
+    /* Visual Architecture & Compare Table */
+    .arch-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .arch-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .arch-flow {
+      display: grid;
+      grid-template-columns: 1fr auto 1.4fr auto 1fr;
+      align-items: center;
+      gap: 12px;
+    }
+
+    @media (max-width: 768px) {
+      .arch-flow { grid-template-columns: 1fr; }
+      .arch-arrow { transform: rotate(90deg); text-align: center; }
+    }
+
+    .arch-col {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .arch-col.hub {
+      background: #1e293b;
+      color: #ffffff;
+      border-color: #0f172a;
+    }
+
+    .arch-col h4 {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--primary);
+    }
+
+    .arch-col.hub h4 { color: #93c5fd; }
+
+    .arch-pill {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 8px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text-main);
+    }
+
+    .arch-col.hub .arch-pill {
+      background: #334155;
+      border-color: #475569;
+      color: #f8fafc;
+    }
+
+    .arch-pill:last-child { margin-bottom: 0; }
+    .arch-arrow { font-size: 18px; font-weight: 700; color: var(--primary); }
+
+    table.compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      font-size: 13.5px;
+    }
+
+    table.compare-table th {
+      background: #f1f5f9;
+      color: var(--text-main);
+      font-weight: 700;
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      text-align: left;
+    }
+
+    table.compare-table th.tobe-col {
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    table.compare-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      color: var(--text-sub);
+      vertical-align: top;
+    }
+
+    table.compare-table td.tobe-cell {
+      background: #f8fafc;
+      color: var(--text-main);
+    }
+
+    table.compare-table tr:last-child td { border-bottom: none; }
+
+    .callout {
+      background: #fffbeb;
+      border-left: 4px solid #f59e0b;
+      border-radius: 0 8px 8px 0;
+      padding: 16px 20px;
+      margin-top: 16px;
+    }
+
+    .callout-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #92400e;
+      margin-bottom: 6px;
+    }
+
+    .callout ul {
+      padding-left: 18px;
+      font-size: 13.5px;
+      color: #78350f;
+    }
+
+    .callout li { margin-bottom: 4px; }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    table.detail-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      text-align: left;
+    }
+
+    table.detail-table th {
+      background: var(--bg);
+      color: var(--text-main);
+      font-weight: 700;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    table.detail-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-sub);
+      vertical-align: top;
+    }
+
+    table.detail-table tr:last-child td { border-bottom: none; }
+    table.detail-table td strong { color: var(--text-main); }
+
+    .schedule-notice {
+      font-size: 13px;
+      color: var(--text-sub);
+      background: var(--bg);
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin-bottom: 14px;
+      border: 1px solid var(--border);
+    }
+
+    .meeting-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .meeting-item {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--primary);
+      border-radius: 0 10px 10px 0;
+      padding: 14px 18px;
+      transition: background 0.15s;
+    }
+
+    .meeting-item:hover {
+      background: #f1f5f9;
+    }
+
+    .meeting-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .meeting-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .meeting-toggle-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 5px;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    .meeting-body {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .meeting-body.collapsed {
+      display: none;
+    }
+
+    .meeting-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .meeting-meta {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 3px 10px;
+      border-radius: 9999px;
+    }
+
+    /* Action Item Tracker & Milestone Table */
+    .milestone-header-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+      padding: 10px 14px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .progress-summary {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .progress-bar-wrap {
+      width: 120px;
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: #10b981;
+      transition: width 0.2s ease;
+    }
+
+    .tracker-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-tracker {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-tracker:hover {
+      background: var(--primary-light);
+      color: var(--primary);
+      border-color: #93c5fd;
+    }
+
+    .btn-tracker.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    .step-cell {
+      background: #f8fafc;
+      font-weight: 700;
+      color: var(--text-main) !important;
+      border-right: 1px solid var(--border);
+    }
+
+    .id-cell {
+      text-align: center;
+      font-weight: 700;
+      color: var(--primary) !important;
+      white-space: nowrap;
+    }
+
+    .status-pill {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      margin-top: 6px;
+    }
+
+    .status-wait { background: #f1f5f9; color: #64748b; }
+    .status-ing { background: #dbeafe; color: #1d4ed8; }
+    .status-done { background: #dcfce7; color: #15803d; }
+
+    .checklist-ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-main);
+      cursor: pointer;
+      padding: 3px 6px;
+      border-radius: 6px;
+      transition: background 0.12s;
+      user-select: none;
+    }
+
+    .checklist-item:hover {
+      background: #f1f5f9;
+    }
+
+    .checklist-item input[type="checkbox"] {
+      margin-top: 3px;
+      width: 15px;
+      height: 15px;
+      accent-color: var(--primary);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .checklist-item.checked span {
+      text-decoration: line-through;
+      color: #94a3b8;
+    }
+
+    .sync-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #cbd5e1;
+    }
+
+    .sync-badge.connected {
+      background: #dcfce7;
+      color: #15803d;
+      border-color: #86efac;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 20px;
+    }
+
+    .modal-card {
+      background: #ffffff;
+      border-radius: 14px;
+      max-width: 560px;
+      width: 100%;
+      padding: 24px 28px;
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.2);
+      border: 1px solid var(--border);
+    }
+
+    .modal-card h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .modal-card p {
+      font-size: 13.5px;
+      color: var(--text-sub);
+      margin-bottom: 12px;
+      line-height: 1.55;
+    }
+
+    .modal-input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 13px;
+      margin-bottom: 14px;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .hidden { display: none !important; }
+
+    @media print {
+      body { background: #ffffff; padding: 0; }
+      .top-nav, .back-bar, .top-control-bar, .guide-notice { display: none !important; }
+      .container { box-shadow: none; border: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <nav class="top-nav">
+    <div class="nav-brand" onclick="showView('wbs')">
+      DIGITAL<span class="accent">ZONE</span>&nbsp;· 2027 개선 과제 통합 관리
+    </div>
+    <div class="nav-actions">
+      <span id="syncStatusBadge" class="sync-badge">로컬 저장 모드</span>
+      <button class="btn-print" onclick="openSyncModal()">☁️ 팀 실시간 동기화 설정</button>
+      <button id="btnBackTop" class="btn-nav-home hidden" onclick="showView('wbs')">← 통합 WBS 목록</button>
+      <button class="btn-print" onclick="window.print()">🖨️ 인쇄 / PDF 저장</button>
+    </div>
+  </nav>
+
+  <!-- VIEW 1: 통합 WBS 대시보드 -->
+  <div id="view-wbs" class="container">
+    <header class="doc-header">
+      <div class="brand">DIGITAL<span class="accent">ZONE</span> · 2027 로드맵</div>
+      <h1>디지털존 2027 개선 과제 통합 WBS 및 상세 일정</h1>
+      <p class="desc">과제명을 클릭하면 상세 정의서로 이동하며, 좌측 [+] 버튼을 누르면 단계별 세부 작업 내용을 펼쳐볼 수 있습니다</p>
+      <div class="badge-group" id="summaryBadges">
+        <!-- JS에서 동적 카운팅 렌더링 -->
+      </div>
+    </header>
+
+    <div class="doc-body">
+      <div class="top-control-bar">
+        <div class="filter-group" id="filterGroup">
+          <!-- JS에서 동적 카운팅 렌더링 -->
+        </div>
+
+        <div class="legend-box">
+          <div class="legend-item"><span class="legend-color bar-total"></span> 전체 추진 기간</div>
+          <div class="legend-item"><span class="legend-color bar-plan"></span> 기획·요건 정의</div>
+          <div class="legend-item"><span class="legend-color bar-dev"></span> 설계·개발</div>
+          <div class="legend-item"><span class="legend-color bar-qa"></span> QA·보안 점검</div>
+          <div class="legend-item"><span class="legend-color bar-launch"></span> 오픈·배포</div>
+        </div>
+      </div>
+
+      <div class="guide-notice">
+        💡 <strong>사용 안내:</strong> 각 행의 <strong>[+] 버튼</strong>을 클릭해 단계별 작업 내용을 펼치거나 접을 수 있으며, <strong>과제명</strong>을 클릭하면 상세 정의서로 랜딩됩니다 (차트 눈금: 월별 1W / 2W 2주 단위)
+      </div>
+
+      <div class="wbs-wrap">
+        <table class="wbs-table" id="wbsTable">
+          <thead id="wbsThead"></thead>
+          <tbody id="wbsTbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIEW 2: 개별 과제 정의서 랜딩 영역 -->
+  <div id="view-detail" class="container hidden"></div>
+
+  <!-- 실시간 동기화 설정 모달 -->
+  <div id="syncModal" class="modal-backdrop hidden" onclick="if(event.target===this) closeSyncModal()">
+    <div class="modal-card">
+      <h3>☁️ 팀원 간 체크 상태 실시간 공유 설정</h3>
+      <p>
+        정적 HTML 파일은 기본적으로 각자의 브라우저에만 체크 상태가 저장됩니다.<br/>
+        팀원 모두와 실시간으로 체크 상태를 동기화하려면 <strong>Firebase Realtime Database URL</strong>(무료, 백엔드 개발 불필요)을 입력해 연결하세요.
+      </p>
+      <p style="background:#f8fafc; padding:10px 12px; border-radius:8px; font-size:12.5px;">
+        <strong>간편 연결 방법 (1분 소요):</strong><br/>
+        1. Firebase 콘솔에서 프로젝트 생성 → Realtime Database 만들기 (테스트 모드)<br/>
+        2. 생성된 DB URL 복사 (예: <code>https://my-project-default-rtdb.firebaseio.com</code>)<br/>
+        3. 아래 입력칸에 URL 붙여넣기 후 저장 (모든 팀원 브라우저에 동일 URL 1회 입력 또는 코드 내 기본값 지정)
+      </p>
+      <input type="text" id="remoteDbUrlInput" class="modal-input" placeholder="https://your-project-default-rtdb.firebaseio.com" />
+      <div class="modal-actions">
+        <button class="btn-tracker" onclick="disconnectRemoteSync()">연결 해제 (로컬 모드)</button>
+        <button class="btn-tracker" onclick="closeSyncModal()">닫기</button>
+        <button class="btn-tracker active" onclick="saveRemoteSyncUrl()">저장 및 동기화</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 분리된 과제 데이터 파일 로드 -->
+  <script src="tasks_data.js"></script>
+
+  <!-- UI 렌더링 엔진 (고정 로직) -->
+  <script>
+    function initSummaryCounts() {
+      const p1Count = wbsTasks.filter(t => t.priority === 'P1').length;
+      const p2Count = wbsTasks.filter(t => t.priority === 'P2').length;
+      const p3Count = wbsTasks.filter(t => t.priority === 'P3').length;
+      const totalCount = wbsTasks.length;
+
+      document.getElementById('summaryBadges').innerHTML = `
+        <span class="badge badge-p1">P1: 운영 필수 및 단기 핵심 (${p1Count}건)</span>
+        <span class="badge badge-p2">P2: 중장기 전략 신사업 (${p2Count}건)</span>
+        <span class="badge badge-p3">P3: 하반기 후순위 조율 (${p3Count}건)</span>
+      `;
+
+      document.getElementById('filterGroup').innerHTML = `
+        <span class="filter-label">우선순위:</span>
+        <button class="filter-btn active" onclick="filterWbs('ALL', this)">전체 (${totalCount})</button>
+        <button class="filter-btn" onclick="filterWbs('P1', this)">P1 (${p1Count})</button>
+        <button class="filter-btn" onclick="filterWbs('P2', this)">P2 (${p2Count})</button>
+        <button class="filter-btn" onclick="filterWbs('P3', this)">P3 (${p3Count})</button>
+        <button class="btn-expand-all" id="btnExpandAll" onclick="toggleAllSubRows()">➕ 세부 작업 전체 펼치기</button>
+      `;
+    }
+
+    function renderWbsTable() {
+      const thead = document.getElementById('wbsThead');
+      const tbody = document.getElementById('wbsTbody');
+
+      let monthHeaders = monthsList.map(m => `<th colspan="2" class="month-end">${m}</th>`).join('');
+      let weekHeaders = monthsList.map(() => `<th class="sub-week">1W</th><th class="sub-week month-end">2W</th>`).join('');
+
+      thead.innerHTML = `
+        <tr>
+          <th rowspan="2" style="width: 225px;">과제명 (클릭 시 정의서 이동)</th>
+          <th rowspan="2" style="width: 65px;">우선순위</th>
+          <th rowspan="2" style="width: 60px;">ID</th>
+          <th rowspan="2" style="width: 280px;">단계별 주요 작업 내용</th>
+          <th rowspan="2" style="width: 85px;" class="month-end">구분</th>
+          ${monthHeaders}
+        </tr>
+        <tr>
+          ${weekHeaders}
+        </tr>
+      `;
+
+      let rowsHtml = '';
+      wbsTasks.forEach(task => {
+        const badgeCls = task.priority === 'P1' ? 'badge-p1' : (task.priority === 'P2' ? 'badge-p2' : 'badge-p3');
+
+        let masterCells = '';
+        for (let i = 0; i < monthsList.length * 2; i++) {
+          const isMonthEnd = (i % 2 === 1) ? 'month-end' : '';
+          const inRange = (i >= task.totalRange[0] && i <= task.totalRange[1]);
+          masterCells += `<td class="gantt-cell ${isMonthEnd}">${inRange ? '<span class="gantt-bar master-summary bar-total"></span>' : ''}</td>`;
+        }
+
+        rowsHtml += `
+          <tr class="master-row" data-priority="${task.priority}" data-group="${task.id}">
+            <td>
+              <div class="project-cell-wrap">
+                <button class="toggle-sub-btn" id="toggle-btn-${task.id}" onclick="toggleSubRows('${task.id}')" title="세부 작업 펼치기/접기">+</button>
+                <button class="task-link-btn" onclick="showView('${task.id}')">📄 ${task.name}</button>
+              </div>
+            </td>
+            <td style="text-align:center;"><span class="badge ${badgeCls}">${task.priority}</span></td>
+            <td style="text-align:center; font-weight:700; color:#0f172a;">전체</td>
+            <td style="font-weight:600; color:#0f172a;">${task.summary}</td>
+            <td style="text-align:center; font-weight:600;" class="month-end">${task.periodText}</td>
+            ${masterCells}
+          </tr>
+        `;
+
+        task.subTasks.forEach(sub => {
+          let subCells = '';
+          for (let i = 0; i < monthsList.length * 2; i++) {
+            const isMonthEnd = (i % 2 === 1) ? 'month-end' : '';
+            const inRange = (i >= sub.range[0] && i <= sub.range[1]);
+            subCells += `<td class="gantt-cell ${isMonthEnd}">${inRange ? `<span class="gantt-bar ${sub.barClass}"></span>` : ''}</td>`;
+          }
+
+          rowsHtml += `
+            <tr class="sub-row collapsed" data-priority="${task.priority}" data-parent="${task.id}">
+              <td style="background:#f8fafc; color:#94a3b8; text-align:right; padding-right:14px;">└ 세부 단계</td>
+              <td></td>
+              <td style="text-align:center; font-weight:600;">${sub.wbsId}</td>
+              <td>${sub.title}</td>
+              <td style="text-align:center;" class="month-end">${sub.type}</td>
+              ${subCells}
+            </tr>
+          `;
+        });
+      });
+
+      tbody.innerHTML = rowsHtml;
+    }
+
+    function toggleSubRows(taskId) {
+      const subRows = document.querySelectorAll(`tr.sub-row[data-parent="${taskId}"]`);
+      const btn = document.getElementById(`toggle-btn-${taskId}`);
+      if (!subRows.length) return;
+
+      const isCurrentlyCollapsed = subRows[0].classList.contains('collapsed');
+      subRows.forEach(row => {
+        if (isCurrentlyCollapsed) {
+          row.classList.remove('collapsed');
+        } else {
+          row.classList.add('collapsed');
+        }
+      });
+      btn.textContent = isCurrentlyCollapsed ? '−' : '+';
+    }
+
+    let allExpanded = false;
+    function toggleAllSubRows() {
+      allExpanded = !allExpanded;
+      wbsTasks.forEach(task => {
+        const masterRow = document.querySelector(`tr.master-row[data-group="${task.id}"]`);
+        if (masterRow && masterRow.classList.contains('hidden')) return;
+
+        const subRows = document.querySelectorAll(`tr.sub-row[data-parent="${task.id}"]`);
+        const btn = document.getElementById(`toggle-btn-${task.id}`);
+        subRows.forEach(row => {
+          if (allExpanded) {
+            row.classList.remove('collapsed');
+          } else {
+            row.classList.add('collapsed');
+          }
+        });
+        if (btn) btn.textContent = allExpanded ? '−' : '+';
+      });
+
+      const expandBtn = document.getElementById('btnExpandAll');
+      expandBtn.textContent = allExpanded ? '➖ 세부 작업 전체 접기' : '➕ 세부 작업 전체 펼치기';
+    }
+
+    function filterWbs(priority, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      wbsTasks.forEach(task => {
+        const match = (priority === 'ALL' || task.priority === priority);
+        const masterRow = document.querySelector(`tr.master-row[data-group="${task.id}"]`);
+        const subRows = document.querySelectorAll(`tr.sub-row[data-parent="${task.id}"]`);
+        const toggleBtn = document.getElementById(`toggle-btn-${task.id}`);
+
+        if (match) {
+          masterRow.classList.remove('hidden');
+          subRows.forEach(r => {
+            r.classList.remove('hidden');
+            if (!allExpanded) r.classList.add('collapsed');
+          });
+          if (toggleBtn) toggleBtn.textContent = allExpanded ? '−' : '+';
+        } else {
+          masterRow.classList.add('hidden');
+          subRows.forEach(r => r.classList.add('hidden'));
+        }
+      });
+    }
+
+    function showView(viewId, preserveScroll = false) {
+      currentActiveViewId = viewId;
+      const wbsView = document.getElementById('view-wbs');
+      const detailView = document.getElementById('view-detail');
+      const btnBackTop = document.getElementById('btnBackTop');
+
+      if (viewId === 'wbs') {
+        wbsView.classList.remove('hidden');
+        detailView.classList.add('hidden');
+        btnBackTop.classList.add('hidden');
+        if (!preserveScroll) window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+
+      const data = projectsData[viewId];
+      if (!data) return;
+
+      const badgesHtml = data.badges.map(b => `<span class="badge ${b.cls}">${b.text}</span>`).join('');
+
+      const sec1Html = data.sec1.map(card => `
+        <div class="info-card ${card.highlight ? 'highlight' : ''}">
+          <h3>${card.title}</h3>
+          <ul class="clean-list">
+            ${card.items.map(it => `<li><strong>${it.bold}</strong> ${it.desc}</li>`).join('')}
+          </ul>
+        </div>
+      `).join('');
+
+      const sec2Html = data.sec2.map(card => `
+        <div class="info-card">
+          <h3>${card.title}</h3>
+          <p>${card.desc}</p>
+        </div>
+      `).join('');
+
+      let visualHtml = '';
+      if (data.sec3.visualType === 'compare') {
+        visualHtml = `
+          <div class="arch-box">
+            <div class="arch-title">${data.sec3.visualTitle}</div>
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th style="width: 18%;">구분</th>
+                  <th style="width: 41%;">AS-IS (기존 이원화 구조)</th>
+                  <th class="tobe-col" style="width: 41%;">TO-BE (단일 콘솔 통합 구조)</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${data.sec3.compareRows.map(r => `
+                  <tr>
+                    <td><strong>${r.category}</strong></td>
+                    <td>${r.asis}</td>
+                    <td class="tobe-cell"><strong>${r.tobe}</strong></td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        `;
+      } else {
+        visualHtml = `
+          <div class="arch-box">
+            <div class="arch-title">${data.sec3.visualTitle}</div>
+            <div class="arch-flow">
+              <div class="arch-col">
+                <h4>${data.sec3.archLeft.title}</h4>
+                ${data.sec3.archLeft.pills.map(p => `<div class="arch-pill">${p}</div>`).join('')}
+              </div>
+              <div class="arch-arrow">→</div>
+              <div class="arch-col hub">
+                <h4>${data.sec3.archCenter.title}</h4>
+                ${data.sec3.archCenter.pills.map(p => `<div class="arch-pill">${p}</div>`).join('')}
+              </div>
+              <div class="arch-arrow">→</div>
+              <div class="arch-col">
+                <h4>${data.sec3.archRight.title}</h4>
+                ${data.sec3.archRight.pills.map(p => `<div class="arch-pill">${p}</div>`).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      const sec3CardsHtml = data.sec3.cards.map(card => `
+        <div class="info-card">
+          <h3>${card.title}</h3>
+          <ul class="clean-list">
+            ${card.items.map(it => `
+              <li>
+                <strong>${it.bold}</strong> ${it.desc}
+                ${it.subItems ? `<ul class="sub-list">${it.subItems.map(sub => `<li>${sub}</li>`).join('')}</ul>` : ''}
+              </li>
+            `).join('')}
+          </ul>
+        </div>
+      `).join('');
+
+      const calloutHtml = data.sec3.callout.map(c => `<li>${c}</li>`).join('');
+
+      // 체크 상태 로컬스토리지 병합 및 렌더링 준비
+      const savedChecks = getSavedChecks(viewId);
+      let totalChecks = 0;
+      let doneChecks = 0;
+
+      // 단계(step)별 rowspan 계산 (필터 적용 전 전체 기준)
+      const filterOnlyUndone = window.currentUndoneFilter || false;
+      const visibleMilestones = data.milestones.map((m, mIdx) => {
+        const tasks = m.tasks ? m.tasks.map((t, tIdx) => {
+          const key = `${mIdx}-${tIdx}`;
+          const isDone = savedChecks.hasOwnProperty(key) ? savedChecks[key] : !!t.done;
+          totalChecks++;
+          if (isDone) doneChecks++;
+          return { text: t.text, done: isDone, key };
+        }) : [{ text: m.desc || '', done: false, key: `${mIdx}-0` }];
+        return { ...m, mIdx, tasks };
+      }).filter(m => {
+        if (!filterOnlyUndone) return true;
+        return m.tasks.some(t => !t.done);
+      });
+
+      const stepCounts = {};
+      visibleMilestones.forEach(m => {
+        stepCounts[m.step] = (stepCounts[m.step] || 0) + 1;
+      });
+      const stepRendered = {};
+
+      const milestonesHtml = visibleMilestones.map(m => {
+        let stepTd = '';
+        if (!stepRendered[m.step]) {
+          stepRendered[m.step] = true;
+          stepTd = `<td class="step-cell" rowspan="${stepCounts[m.step]}">${m.step}</td>`;
+        }
+
+        const rowTotal = m.tasks.length;
+        const rowDone = m.tasks.filter(t => t.done).length;
+        let statusBadge = `<span class="status-pill status-wait">대기 (${rowDone}/${rowTotal})</span>`;
+        if (rowDone > 0 && rowDone < rowTotal) {
+          statusBadge = `<span class="status-pill status-ing">진행중 (${rowDone}/${rowTotal})</span>`;
+        } else if (rowTotal > 0 && rowDone === rowTotal) {
+          statusBadge = `<span class="status-pill status-done">완료 (${rowDone}/${rowTotal})</span>`;
+        }
+
+        const checklistHtml = `
+          <ul class="checklist-ul">
+            ${m.tasks.map(t => `
+              <li class="checklist-item ${t.done ? 'checked' : ''}" onclick="toggleActionCheck('${viewId}', '${t.key}', event)">
+                <input type="checkbox" ${t.done ? 'checked' : ''} onclick="event.stopPropagation(); toggleActionCheck('${viewId}', '${t.key}', event)" />
+                <span>${t.text}</span>
+              </li>
+            `).join('')}
+          </ul>
+        `;
+
+        return `
+          <tr>
+            ${stepTd}
+            <td class="id-cell">${m.id || '-'}</td>
+            <td>
+              <strong>${m.title || m.step}</strong><br/>
+              ${statusBadge}
+            </td>
+            <td>${checklistHtml}</td>
+            <td>${m.owner || m.note || ''}</td>
+            <td><strong>${m.date || ''}</strong></td>
+          </tr>
+        `;
+      }).join('');
+
+      const progressPct = totalChecks > 0 ? Math.round((doneChecks / totalChecks) * 100) : 0;
+
+      const meetingLogsHtml = (data.meetingLogs && data.meetingLogs.length > 0)
+        ? data.meetingLogs.map((log, idx) => `
+            <div class="meeting-item">
+              <div class="meeting-header" onclick="toggleMeetingLog(${idx})">
+                <div class="meeting-header-left">
+                  <span class="meeting-toggle-icon" id="meeting-icon-${idx}">+</span>
+                  <span class="meeting-title">🗓️ ${log.title}</span>
+                </div>
+                <span class="meeting-meta">${log.date} · ${log.participants}</span>
+              </div>
+              <div class="meeting-body collapsed" id="meeting-body-${idx}">
+                <ul class="clean-list">
+                  ${log.summary.map(s => `<li>${s}</li>`).join('')}
+                </ul>
+              </div>
+            </div>
+          `).join('')
+        : `<div class="schedule-notice">등록된 회의록이 없습니다</div>`;
+
+      detailView.innerHTML = `
+        <header class="doc-header">
+          <div class="brand">${data.brand}</div>
+          <h1>${data.title}</h1>
+          <div class="badge-group">${badgesHtml}</div>
+        </header>
+
+        <div class="doc-body">
+          <div class="back-bar">
+            <button class="btn-back" onclick="showView('wbs')">← 통합 WBS 및 일정표로 돌아가기</button>
+          </div>
+
+          <section>
+            <h2 class="section-title"><span class="section-num">1</span> 추진 배경 및 현황</h2>
+            <div class="two-col">${sec1Html}</div>
+          </section>
+
+          <section>
+            <h2 class="section-title"><span class="section-num">2</span> 핵심 목표 및 기대효과</h2>
+            <div class="three-col">${sec2Html}</div>
+          </section>
+
+          <section>
+            <h2 class="section-title"><span class="section-num">3</span> 주요 작업 내용</h2>
+            ${visualHtml}
+            <div class="two-col">${sec3CardsHtml}</div>
+            <div class="callout">
+              <div class="callout-title">⚠️ 정책 및 의사결정 필요 사항</div>
+              <ul>${calloutHtml}</ul>
+            </div>
+          </section>
+
+          <section>
+            <h2 class="section-title"><span class="section-num">4</span> 상세 일정 및 액션 아이템</h2>
+            <div class="schedule-notice">📅 <strong>일정 운영 방향:</strong> ${data.scheduleNotice}</div>
+            <div class="milestone-header-bar">
+              <div class="progress-summary">
+                <span>📊 액션 아이템 진척률: ${doneChecks}/${totalChecks} 완료 (${progressPct}%)</span>
+                <div class="progress-bar-wrap">
+                  <div class="progress-bar-fill" style="width: ${progressPct}%;"></div>
+                </div>
+              </div>
+              <div class="tracker-controls">
+                <button class="btn-tracker ${!filterOnlyUndone ? 'active' : ''}" onclick="setUndoneFilter('${viewId}', false)">전체 보기</button>
+                <button class="btn-tracker ${filterOnlyUndone ? 'active' : ''}" onclick="setUndoneFilter('${viewId}', true)">미완료만 보기</button>
+                <button class="btn-tracker" onclick="exportChecksJson()">💾 진행상태 백업(.json)</button>
+                <button class="btn-tracker" onclick="document.getElementById('importJsonInput').click()">📂 불러오기</button>
+                <input type="file" id="importJsonInput" accept=".json" class="hidden" onchange="importChecksJson(event, '${viewId}')" />
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table class="detail-table">
+                <thead>
+                  <tr>
+                    <th style="width: 15%;">단계</th>
+                    <th style="width: 6%; text-align:center;">ID</th>
+                    <th style="width: 21%;">작업 타이틀</th>
+                    <th style="width: 34%;">세부 액션 아이템 (체크리스트)</th>
+                    <th style="width: 13%;">담당자</th>
+                    <th style="width: 11%;">목표 일정</th>
+                  </tr>
+                </thead>
+                <tbody>${milestonesHtml || '<tr><td colspan="6" style="text-align:center; padding:20px;">모든 액션 아이템이 완료되었습니다 🎉</td></tr>'}</tbody>
+              </table>
+            </div>
+          </section>
+
+          <section>
+            <h2 class="section-title"><span class="section-num">5</span> 회의록 아카이브</h2>
+            <div class="meeting-list">${meetingLogsHtml}</div>
+          </section>
+        </div>
+      `;
+
+      wbsView.classList.add('hidden');
+      detailView.classList.remove('hidden');
+      btnBackTop.classList.remove('hidden');
+      if (!preserveScroll) window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    const STORAGE_KEY = 'digitalzone_wbs_action_checks_v1';
+    const REMOTE_URL_KEY = 'digitalzone_wbs_remote_db_url';
+    // 배포 시 팀 전체에 기본 적용하려면 아래 변수에 Firebase Realtime DB URL을 직접 입력하세요
+    const DEFAULT_REMOTE_DB_URL = 'https://dzwork-ff191-default-rtdb.firebaseio.com/';
+
+    let currentActiveViewId = 'wbs';
+
+    function getRemoteDbUrl() {
+      return localStorage.getItem(REMOTE_URL_KEY) || DEFAULT_REMOTE_DB_URL || '';
+    }
+
+    function updateSyncBadge(statusText, isConnected) {
+      const badge = document.getElementById('syncStatusBadge');
+      if (!badge) return;
+      badge.textContent = statusText;
+      badge.classList.toggle('connected', !!isConnected);
+    }
+
+    function openSyncModal() {
+      document.getElementById('remoteDbUrlInput').value = getRemoteDbUrl();
+      document.getElementById('syncModal').classList.remove('hidden');
+    }
+
+    function closeSyncModal() {
+      document.getElementById('syncModal').classList.add('hidden');
+    }
+
+    async function saveRemoteSyncUrl() {
+      const rawUrl = document.getElementById('remoteDbUrlInput').value.trim().replace(/\/$/, '');
+      if (!rawUrl) {
+        alert('유효한 URL을 입력해 주세요');
+        return;
+      }
+      localStorage.setItem(REMOTE_URL_KEY, rawUrl);
+      closeSyncModal();
+      await pullFromRemoteDb(true);
+    }
+
+    function disconnectRemoteSync() {
+      localStorage.removeItem(REMOTE_URL_KEY);
+      updateSyncBadge('로컬 저장 모드', false);
+      closeSyncModal();
+    }
+
+    async function pullFromRemoteDb(showAlert = false) {
+      const baseUrl = getRemoteDbUrl();
+      if (!baseUrl) {
+        updateSyncBadge('로컬 저장 모드', false);
+        return;
+      }
+      try {
+        updateSyncBadge('☁️ 동기화 중...', true);
+        const res = await fetch(`${baseUrl}/digitalzone_checks.json`);
+        if (!res.ok) throw new Error('Network error');
+        const remoteData = await res.json();
+        if (remoteData && typeof remoteData === 'object') {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(remoteData));
+        }
+        updateSyncBadge('☁️ 팀 실시간 동기화 연결됨', true);
+        if (currentActiveViewId !== 'wbs') {
+          showView(currentActiveViewId, true);
+        }
+        if (showAlert) alert('원격 DB와 성공적으로 동기화되었습니다');
+      } catch (e) {
+        updateSyncBadge('⚠️ 동기화 연결 오류 (로컬 저장됨)', false);
+        if (showAlert) alert('DB URL 연결에 실패했습니다. URL과 권한 설정을 확인해 주세요.');
+      }
+    }
+
+    async function pushToRemoteDb(allData) {
+      const baseUrl = getRemoteDbUrl();
+      if (!baseUrl) return;
+      try {
+        updateSyncBadge('☁️ 저장 중...', true);
+        const res = await fetch(`${baseUrl}/digitalzone_checks.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(allData)
+        });
+        if (!res.ok) throw new Error('Save error');
+        updateSyncBadge('☁️ 팀 실시간 동기화 완료', true);
+      } catch (e) {
+        updateSyncBadge('⚠️ 원격 저장 실패 (로컬 임시저장)', false);
+      }
+    }
+
+    function getAllSavedChecks() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      } catch (e) {
+        return {};
+      }
+    }
+
+    function getSavedChecks(viewId) {
+      const all = getAllSavedChecks();
+      return all[viewId] || {};
+    }
+
+    function toggleActionCheck(viewId, taskKey, event) {
+      const all = getAllSavedChecks();
+      if (!all[viewId]) all[viewId] = {};
+      const data = projectsData[viewId];
+      const [mIdx, tIdx] = taskKey.split('-').map(Number);
+      const defaultDone = data.milestones[mIdx] && data.milestones[mIdx].tasks && data.milestones[mIdx].tasks[tIdx]
+        ? !!data.milestones[mIdx].tasks[tIdx].done
+        : false;
+      const currentVal = all[viewId].hasOwnProperty(taskKey) ? all[viewId][taskKey] : defaultDone;
+      all[viewId][taskKey] = !currentVal;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
+      showView(viewId, true);
+      pushToRemoteDb(all);
+    }
+
+    function setUndoneFilter(viewId, onlyUndone) {
+      window.currentUndoneFilter = onlyUndone;
+      showView(viewId, true);
+    }
+
+    function exportChecksJson() {
+      const all = getAllSavedChecks();
+      const blob = new Blob([JSON.stringify(all, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'digitalzone_action_status.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function importChecksJson(event, viewId) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
+          alert('진행 상태 데이터를 성공적으로 불러왔습니다');
+          showView(viewId);
+        } catch (err) {
+          alert('유효하지 않은 JSON 파일입니다');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function toggleMeetingLog(idx) {
+      const body = document.getElementById(`meeting-body-${idx}`);
+      const icon = document.getElementById(`meeting-icon-${idx}`);
+      if (!body) return;
+      const isCollapsed = body.classList.contains('collapsed');
+      if (isCollapsed) {
+        body.classList.remove('collapsed');
+        if (icon) icon.textContent = '−';
+      } else {
+        body.classList.add('collapsed');
+        if (icon) icon.textContent = '+';
+      }
+    }
+
+    initSummaryCounts();
+    renderWbsTable();
+    pullFromRemoteDb(false);
+  </script>
+</body>
+</html>
